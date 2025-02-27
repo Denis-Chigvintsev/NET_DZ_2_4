@@ -1,0 +1,75 @@
+
+Задание 1.
+
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker ps -a 
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker pull busybox:latest
+latest: Pulling from library/busybox
+Digest: sha256:498a000f370d8c37927118ed80afe8adc38d1edcbfc071627d17b25c88efcab0
+Status: Image is up to date for busybox:latest
+docker.io/library/busybox:latestPS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> 
+__________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker run --name pinger -it busybox ping  netology.ru    
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=63 time=44.303 ms
+64 bytes from 51.250.51.8: seq=1 ttl=63 time=45.433 ms
+64 bytes from 51.250.51.8: seq=2 ttl=63 time=41.111 ms
+64 bytes from 51.250.51.8: seq=3 ttl=63 time=42.508 ms
+64 bytes from 51.250.51.8: seq=4 ttl=63 time=163.168 ms
+64 bytes from 51.250.51.8: seq=5 ttl=63 time=84.135 ms
+64 bytes from 51.250.51.8: seq=6 ttl=63 time=78.114 ms
+64 bytes from 51.250.51.8: seq=7 ttl=63 time=37.808 ms
+___________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker start pinger
+pinger
+___________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker ps -a
+CONTAINER ID   IMAGE     COMMAND              CREATED         STATUS          PORTS     NAMES
+1842df09687b   busybox   "ping netology.ru"   3 minutes ago   Up 18 seconds             pinger
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> 
+___________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker logs 1842
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=63 time=44.303 ms
+64 bytes from 51.250.51.8: seq=1 ttl=63 time=45.433 ms
+64 bytes from 51.250.51.8: seq=2 ttl=63 time=41.111 ms
+64 bytes from 51.250.51.8: seq=3 ttl=63 time=42.508 ms
+64 bytes from 51.250.51.8: seq=4 ttl=63 time=163.168 ms
+64 bytes from 51.250.51.8: seq=5 ttl=63 time=84.135 ms
+64 bytes from 51.250.51.8: seq=6 ttl=63 time=78.114 ms
+64 bytes from 51.250.51.8: seq=7 ttl=63 time=37.808 ms
+64 bytes from 51.250.51.8: seq=8 ttl=63 time=70.408 ms
+^C
+--- netology.ru ping statistics ---
+9 packets transmitted, 9 packets received, 0% packet loss
+round-trip min/avg/max = 37.808/67.443/163.168 ms
+PING netology.ru (51.250.51.8): 56 data bytes
+64 bytes from 51.250.51.8: seq=0 ttl=63 time=143.677 ms
+64 bytes from 51.250.51.8: seq=1 ttl=63 time=63.720 ms
+64 bytes from 51.250.51.8: seq=2 ttl=63 time=42.689 ms
+64 bytes from 51.250.51.8: seq=3 ttl=63 time=111.158 ms
+64 bytes from 51.250.51.8: seq=4 ttl=63 time=42.956 ms
+64 bytes from 51.250.51.8: seq=5 ttl=63 time=156.718 ms
+64 bytes from 51.250.51.8: seq=6 ttl=63 time=37.597 ms
+
+Команда ping запускалась дважды -- количество запросов на сервер netologie.ru пересчитал 
+___________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker ps -a
+CONTAINER ID   IMAGE     COMMAND              CREATED          STATUS         PORTS     NAMES 
+1842df09687b   busybox   "ping netology.ru"   11 minutes ago   Up 8 minutes             pinger
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker rm pinger 
+Error response from daemon: cannot remove container "/pinger": container is running: stop the container before removing or force remove
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker stop pinger
+pinger
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker rm pinger
+pinger
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> 
+___________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> docker rmi busybox
+Untagged: busybox:latest
+Untagged: busybox@sha256:498a000f370d8c37927118ed80afe8adc38d1edcbfc071627d17b25c88efcab0
+Deleted: sha256:31311c5853a22c04d692f6581b4faa25771d915c1ba056c74e5ec82606eefdfa
+Deleted: sha256:59654b79daad74c77dc2e28502ca577ba8ce73276720002234a23fc60ee92692
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-dz> 
+___________________________
+

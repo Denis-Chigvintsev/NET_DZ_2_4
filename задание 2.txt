@@ -1,0 +1,62 @@
+Задание 2.
+
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker pull node:20.18.3
+20.18.3: Pulling from library/node
+155ad54a8b28: Pull complete
+8031108f3cda: Pull complete
+1d281e50d3e4: Pull complete
+447713e77b4f: Pull complete
+1c6d6396ba22: Pull complete
+a9f996684ac0: Pull complete
+e6c9f1aba3dc: Pull complete
+1b396545b2c4: Pull complete
+Digest: sha256:bcf90f85634194bc51e92f8add1221c7fdeeff94b7f1ff360aeaa7498086d641
+Status: Downloaded newer image for node:20.18.3
+docker.io/library/node:20.18.3
+____________________________________
+
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker run -it --name myNode -e NAME=Denis -e LASTNAME=Chigvintsev  node:20.18.3
+Welcome to Node.js v20.18.3.
+____________________________________
+console.log(`Привет ${process.env.NAME} ${process.env.LASTNAME}`);
+Привет Denis Chigvintsev
+undefined
+{не понимаю откуда лезет undefined!!!}
+_____________________________________
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES 
+50d141a86cc8   node:20.18.3   "docker-entrypoint.s…"   12 minutes ago   Up 12 minutes             myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker stop myNode
+myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                        PORTS     NAMES 
+50d141a86cc8   node:20.18.3   "docker-entrypoint.s…"   13 minutes ago   Exited (137) 14 seconds ago             myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> 
+_____________________________________
+docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES 
+50d141a86cc8   node:20.18.3   "docker-entrypoint.s…"   12 minutes ago   Up 12 minutes             myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker stop myNode
+myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                        PORTS     NAMES 
+50d141a86cc8   node:20.18.3   "docker-entrypoint.s…"   13 minutes ago   Exited (137) 14 seconds ago             myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker rmi node:20.18.3
+Error response from daemon: conflict: unable to remove repository reference "node:20.18.3" (must force) - container 50d141a86cc8 is using its referenced image ffa219f9ddc2
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker rm myNode
+myNode
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps -s
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES     SIZE
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker rmi node:20.18.3
+Untagged: node:20.18.3
+Untagged: node@sha256:bcf90f85634194bc51e92f8add1221c7fdeeff94b7f1ff360aeaa7498086d641
+Deleted: sha256:ffa219f9ddc21f20d1dbf4d948f6c8cfe5981b2f2cbf05497a320ea68373f0df      
+Deleted: sha256:731a7825262acb7b74c9d94207d55b0bba6c80d62263cfd1fe463164835e083d      
+Deleted: sha256:364a5558a74965ae05b65e35b1faac8c5da9de0dfbd06ebd6c8538f4810a4875      
+Deleted: sha256:bb94a209ffa7b4cc916fbb97b8c309146bbaf6e316dc976f6a7c185fef2adacd      
+Deleted: sha256:a8b0411c13969d679e6894673c57c7a5faae3f2e6dbe5e1b82b9120b61f70c3b      
+Deleted: sha256:19499b1b05655fb8dfdb97d2d70be8a37d8be186b2ee54195d38973451b642c3      
+Deleted: sha256:61c887cfa58ed480aa22fc34dbb933dd29538b13aab89847e071e5253d40e2d6      
+Deleted: sha256:70c8762a14802e4ea0362748fca2ae2593b7866d954f915bae51cae1fa436297      
+Deleted: sha256:01c9a2a5f23727d0aab91da9d479286e25780d50b574f1a9df47ca850a88b591      
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> 
+

@@ -1,0 +1,89 @@
+Задание 3. /Замечание: текущая папка не связывалась с контейнером, видимо потому что на рабочем столе. Запустил из c:/data
+________________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker pull node:20.18.3
+20.18.3: Pulling from library/node
+155ad54a8b28: Pull complete
+8031108f3cda: Pull complete
+1d281e50d3e4: Pull complete
+447713e77b4f: Pull complete
+1c6d6396ba22: Pull complete
+a9f996684ac0: Pull complete
+e6c9f1aba3dc: Pull complete
+1b396545b2c4: Pull complete
+Digest: sha256:bcf90f85634194bc51e92f8add1221c7fdeeff94b7f1ff360aeaa7498086d641
+Status: Downloaded newer image for node:20.18.3
+docker.io/library/node:20.18.3
+______________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker run --name first_node -it -v c:/data:/var/first/data node:20.18.3 sleep infinity
+______________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps       
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES     
+5ad67f45c911   node:20.18.3   "docker-entrypoint.s…"   27 seconds ago   Up 26 seconds             first_node
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker exec -it first_node bin/bash
+root@5ad67f45c911:/# dir
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@5ad67f45c911:/# cd var
+root@5ad67f45c911:/var# dir
+backups  cache  first  lib  local  lock  log  mail  opt  run  spool  tmp
+root@5ad67f45c911:/var# cd first
+root@5ad67f45c911:/var/first# dir
+data
+root@5ad67f45c911:/var/first# cd data
+root@5ad67f45c911:/var/first/data# dir
+root@5ad67f45c911:/var/first/data# dir
+1.txt
+root@5ad67f45c911:/var/first/data# 
+_________________________________
+docker run --name second_node -it -v c:/data:/var/second/data node:20.18.3 sleep infinity 
+_________________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps 
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES      
+f4a4417913c8   node:20.18.3   "docker-entrypoint.s…"   9 seconds ago    Up 9 seconds              second_node
+5ad67f45c911   node:20.18.3   "docker-entrypoint.s…"   21 minutes ago   Up 21 minutes             first_node 
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker exec -it second_node bin/bash
+root@f4a4417913c8:/# dir
+bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@f4a4417913c8:/# cd var
+root@f4a4417913c8:/var# dir
+backups  cache  lib  local  lock  log  mail  opt  run  second  spool  tmp
+root@f4a4417913c8:/var# cd second
+root@f4a4417913c8:/var/second# dir
+data
+root@f4a4417913c8:/var/second# cd data
+root@f4a4417913c8:/var/second/data# dir
+1.txt
+root@f4a4417913c8:/var/second/data# dir
+1.txt  2.txt
+root@f4a4417913c8:/var/second/data# 
+_____________________________________
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS     NAMES      
+f4a4417913c8   node:20.18.3   "docker-entrypoint.s…"   5 minutes ago    Up 5 minutes              second_node
+5ad67f45c911   node:20.18.3   "docker-entrypoint.s…"   26 minutes ago   Up 26 minutes             first_node 
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker stop first_node
+first_node
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker stop second_node
+second_node
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                        PORTS     NAMES      
+f4a4417913c8   node:20.18.3   "docker-entrypoint.s…"   6 minutes ago    Exited (137) 18 seconds ago             second_node
+5ad67f45c911   node:20.18.3   "docker-entrypoint.s…"   27 minutes ago   Exited (137) 40 seconds ago             first_node 
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker rm first_node
+first_node
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker rm second_node
+second_node
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> docker rmi node:20.18.3
+Untagged: node:20.18.3
+Untagged: node@sha256:bcf90f85634194bc51e92f8add1221c7fdeeff94b7f1ff360aeaa7498086d641
+Deleted: sha256:ffa219f9ddc21f20d1dbf4d948f6c8cfe5981b2f2cbf05497a320ea68373f0df      
+Deleted: sha256:731a7825262acb7b74c9d94207d55b0bba6c80d62263cfd1fe463164835e083d      
+Deleted: sha256:364a5558a74965ae05b65e35b1faac8c5da9de0dfbd06ebd6c8538f4810a4875      
+Deleted: sha256:bb94a209ffa7b4cc916fbb97b8c309146bbaf6e316dc976f6a7c185fef2adacd      
+Deleted: sha256:a8b0411c13969d679e6894673c57c7a5faae3f2e6dbe5e1b82b9120b61f70c3b      
+Deleted: sha256:19499b1b05655fb8dfdb97d2d70be8a37d8be186b2ee54195d38973451b642c3      
+Deleted: sha256:61c887cfa58ed480aa22fc34dbb933dd29538b13aab89847e071e5253d40e2d6      
+Deleted: sha256:70c8762a14802e4ea0362748fca2ae2593b7866d954f915bae51cae1fa436297      
+Deleted: sha256:01c9a2a5f23727d0aab91da9d479286e25780d50b574f1a9df47ca850a88b591      
+PS C:\Users\Пользователь\Desktop\NetoLogie\2-4-DZ> 
